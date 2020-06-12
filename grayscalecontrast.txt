@@ -1,0 +1,65 @@
+pkg load image
+im=imread('kodim01.png');
+im=rgb2gray(im);
+imt=imread('image1.png');
+imt=rgb2gray(imt);
+ 
+[row col]=size(imt);
+
+a=3;
+b=1.9;
+Ib=im2double(imt);
+
+
+for i=1:row
+ for j=1:col
+    I1(i,j) = double(betainc(Ib(i,j),a,b));   %incomplete beta function
+ end
+end
+
+
+
+for i=1:row
+ for j=1:col
+I(i,j)=I1(i,j)*255;
+end
+end
+
+
+I= uint8(I);
+
+%fitness function
+edge_final=edge(I,'canny');
+tot_edgeintensity=0;
+tot_edgepixel=0;
+
+
+for i=1:row
+  for j=1:col
+  if(edge_final(i,j)==1)
+  tot_edgeintensity=tot_edgeintensity+I(i,j);
+  tot_edgepixel=tot_edgepixel+1;
+  end
+end
+
+entropy=entropy(I);
+image_contrast = max(I(:)) - min(I(:));
+
+
+
+
+F=log(log(tot_edgeintensity)*tot_edgepixel*entropy*image_contrast;
+%end of fitness function
+
+
+x1=[1 2];
+x2=[2 3];
+x3=[3 4];
+x4=[2 2];
+
+q1=
+
+
+
+%final measurement
+PSNR=psnr(I,im);
